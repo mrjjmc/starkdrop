@@ -1,4 +1,4 @@
-#[starknet::contract]
+#[Starknet::contract]
 mod MyToken {
     use starknet::ContractAddress;
     use openzeppelin::access::ownable::Ownable;
