@@ -1,2 +1,2 @@
 # starkdrop
-starknet token drop.
+Starknet token drop.
