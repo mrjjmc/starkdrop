@@ -1,2 +1,0 @@
-# starkdrop
-Starknet token drop.
