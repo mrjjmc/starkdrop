@@ -10,15 +10,17 @@ mod MyToken {
     #[constructor]
     fn constructor(self: @ContractState, owner: ContractAddress) {
         // Set contract owner
-        let mut unsafe_ownable = Ownable::unsafe_new_contract_state();
-        Ownable::InternalImpl::initializer(ref unsafe_ownable, owner);
+        Ownable::InternalImpl::initializer(
+            Ownable::unsafe_new_contract_state(),
+            owner
+        );
 
         // Initialize ERC20
-        let name = 'MyToken';
-        let symbol = 'MTK';
-
-        let mut unsafe_erc20 = ERC20::unsafe_new_contract_state();
-        ERC20::InternalImpl::initializer(ref unsafe_erc20, name, symbol);
+        ERC20::InternalImpl::initializer(
+            ERC20::unsafe_new_contract_state(),
+            'MyToken',
+            'MTK'
+        );
     }
 
     #[external(v0)]
@@ -28,11 +30,15 @@ mod MyToken {
         amount: u256
     ) {
         // Set permissions with Ownable
-        let unsafe_ownable = Ownable::unsafe_new_contract_state();
-        Ownable::InternalImpl::assert_only_owner(@unsafe_ownable);
+        Ownable::InternalImpl::assert_only_owner(
+            Ownable::unsafe_new_contract_state()
+        );
 
         // Mint tokens if called by the contract owner
-        let mut unsafe_erc20 = ERC20::unsafe_new_contract_state();
-        ERC20::InternalImpl::_mint(ref unsafe_erc20, recipient, amount);
+        ERC20::InternalImpl::_mint(
+            ERC20::unsafe_new_contract_state(),
+            recipient,
+            amount
+        );
     }
 }
