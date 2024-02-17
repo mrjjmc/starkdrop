@@ -8,11 +8,11 @@ mod MyToken {
 
     #[constructor]
     fn constructor(self: @ContractState) {
-        let name = 'MyToken';
-        let symbol = 'MTK';
-
-        let mut unsafe_state = ERC20::unsafe_new_contract_state();
-        ERC20::InternalImpl::initializer(ref unsafe_state, name, symbol);
+        ERC20::InternalImpl::initializer(
+            ERC20::unsafe_new_contract_state(),
+            'MyToken',
+            'MTK'
+        );
     }
 
     #[external(v0)]
@@ -21,9 +21,10 @@ mod MyToken {
         recipient: ContractAddress,
         amount: u256
     ) {
-        // This function is NOT protected which means
-        // ANYONE can mint tokens
-        let mut unsafe_state = ERC20::unsafe_new_contract_state();
-        ERC20::InternalImpl::_mint(ref unsafe_state, recipient, amount);
+        ERC20::InternalImpl::_mint(
+            ERC20::unsafe_new_contract_state(),
+            recipient,
+            amount
+        );
     }
 }
